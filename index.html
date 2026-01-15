@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>А ты знала что ты для меня важнее всех на свете)</title>
+  <title>💔</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -39,41 +39,8 @@
   </style>
 </head>
 <body>
-  <h1 class="fade">Прекрасных дней с тобой:</h1>
-  <div id="timer" class="fade">Подожди :)</div>
-  <h2 class="fade">Люблю тебя, надеюсь таймер никогда не остановиться</h2>
-
-  <script>
-    function plural(number, one, few, many) {
-      const n = Math.abs(number) % 100;
-      const n1 = n % 10;
-      if (n > 10 && n < 20) return many;
-      if (n1 > 1 && n1 < 5) return few;
-      if (n1 === 1) return one;
-      return many;
-    }
-
-    function formatTime(diffSec) {
-      const totalMinutes = Math.floor(diffSec / 60);
-      const days = Math.floor(totalMinutes / 1440);
-      const years = Math.floor(days / 365);
-      const remDays = days % 365;
-      const hours = Math.floor((totalMinutes % 1440) / 60);
-      const minutes = totalMinutes % 60;
-
-      let parts = [];
-      if (years > 0) parts.push(`${years} ${plural(years,'год','года','лет')}`);
-      if (remDays > 0 || years > 0) parts.push(`${remDays} ${plural(remDays,'день','дня','дней')}`);
-      parts.push(`${hours} ${plural(hours,'час','часа','часов')}`);
-      parts.push(`${minutes} ${plural(minutes,'минута','минуты','минут')}`);
-      return parts.join(', ') + ' ❤️';
-    }
-
-    const evtSource = new EventSource('https://gameapi.kuzymuzy.ru/timer.php');
-    evtSource.onmessage = e => {
-      const diffSec = parseInt(e.data);
-      document.getElementById('timer').textContent = formatTime(diffSec);
-    };
-  </script>
+  <h1 class="fade">💔:</h1>
+  <div id="timer" class="fade">144 дня, 0 часов, 55 минут</div>
+  <h2 class="fade">💔</h2>
 </body>
 </html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>А ты знала что ты для меня важнее всех на свете)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: radial-gradient(circle at center, #1e1b4b, #0f172a);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    #timer {
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    .fade {
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="fade">Прекрасных дней с тобой:</h1>
+  <div id="timer" class="fade">Подожди :)</div>
+  <h2 class="fade">Люблю тебя, надеюсь таймер никогда не остановиться</h2>
+
+  <script>
+    function plural(number, one, few, many) {
+      const n = Math.abs(number) % 100;
+      const n1 = n % 10;
+      if (n > 10 && n < 20) return many;
+      if (n1 > 1 && n1 < 5) return few;
+      if (n1 === 1) return one;
+      return many;
+    }
+
+    function formatTime(diffSec) {
+      const totalMinutes = Math.floor(diffSec / 60);
+      const days = Math.floor(totalMinutes / 1440);
+      const years = Math.floor(days / 365);
+      const remDays = days % 365;
+      const hours = Math.floor((totalMinutes % 1440) / 60);
+      const minutes = totalMinutes % 60;
+
+      let parts = [];
+      if (years > 0) parts.push(`${years} ${plural(years,'год','года','лет')}`);
+      if (remDays > 0 || years > 0) parts.push(`${remDays} ${plural(remDays,'день','дня','дней')}`);
+      parts.push(`${hours} ${plural(hours,'час','часа','часов')}`);
+      parts.push(`${minutes} ${plural(minutes,'минута','минуты','минут')}`);
+      return parts.join(', ') + ' ❤️';
+    }
+
+    const evtSource = new EventSource('https://gameapi.kuzymuzy.ru/timer.php');
+    evtSource.onmessage = e => {
+      const diffSec = parseInt(e.data);
+      document.getElementById('timer').textContent = formatTime(diffSec);
+    };
+  </script>
+</body>
+</html>
